@@ -7,6 +7,7 @@ import {ShoppingEditComponent} from "./shopping-list/shopping-edit/shopping-edit
 import {RecipeStartComponent} from "./recipes/recipe-start/recipe-start.component";
 import {RecipeEditComponent} from "./recipes/recipe-edit/recipe-edit.component";
 import {RecipeResolverService} from "./recipes/recipe-resolver.service";
+import {AuthComponent} from "./auth/auth.component";
 
 
 const appRoutes: Routes = [
@@ -24,8 +25,8 @@ const appRoutes: Routes = [
     children: [
       {path: ':id/edit', component: ShoppingEditComponent}
     ]
-
-  }
+  },
+  { path: 'auth', component: AuthComponent }
 
 ];
 
