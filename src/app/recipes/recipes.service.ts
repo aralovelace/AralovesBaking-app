@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {Recipe} from "./recipe.model";
 import {Ingredient} from "../shared/ingredient.model";
-import {ShoppingListService} from "../shopping-list/shopping-list.service";
 import {Subject} from "rxjs";
 import {Store} from "@ngrx/store";
 import * as ShoppingListActions from '../shopping-list/store/shopping-list.actions'
+import * as fromShoppingList from '../shopping-list/store/shopping-list.reducer'
 
 @Injectable({
   providedIn: 'root'
@@ -12,32 +12,10 @@ import * as ShoppingListActions from '../shopping-list/store/shopping-list.actio
 export class RecipesService {
   recipeChanged = new Subject<Recipe[]>();
 
-  // private recipes: Recipe[] = [
-  //   new Recipe(
-  //     'A Test Recipe',
-  //     'This is simplt Test',
-  //     'https://www.telegraph.co.uk/content/dam/food-and-drink/2019/01/11/TELEMMGLPICT000185036503_trans_NvBQzQNjv4Bq8m3xuhMyFOjUOkuEnTdW-M-bhHwB87o-r13mliye62g.jpeg?imwidth=1400',
-  //     [
-  //       new Ingredient('Meat',1),
-  //       new Ingredient('Carrots', 3)
-  //     ]
-  //   ),
-  //   new Recipe(
-  //     'Burger',
-  //     'This is simple Test',
-  //     'https://www.telegraph.co.uk/content/dam/food-and-drink/2019/01/11/TELEMMGLPICT000185036503_trans_NvBQzQNjv4Bq8m3xuhMyFOjUOkuEnTdW-M-bhHwB87o-r13mliye62g.jpeg?imwidth=1400',
-  //     [
-  //       new Ingredient('Buns',2),
-  //       new Ingredient('Patty', 3)
-  //     ]
-  //   )
-  // ];
-
   private recipes: Recipe[] = [];
 
   constructor(
-    private shoppingListService: ShoppingListService,
-    private store: Store<{ shoppingList: { ingredients: Ingredient[] } }>
+    private store: Store<fromShoppingList.AppState>
     ) { }
 
   setRecipes(recipes: Recipe[]) {
@@ -50,7 +28,7 @@ export class RecipesService {
   }
 
   getRecipe(index: number) {
-    return this.recipes.slice()[index];
+    return this.recipes[index];
   }
 
   addIngredientsToShoppingList(ingredients: Ingredient[]) {
